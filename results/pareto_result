@@ -1,0 +1,46 @@
+
+DATACENTER CONFIGURATION:
+Num of PMs: h_size = 4,
+Num of VMs: v_size = 8
+Number of CRITICAL VMs: 4 (50.0)%
+
+
+VMPOS CONFIGURATION PARAMETERS:
+Number of Individuals: 5
+Number of Generations: 50
+Energy Weight: 1.000
+Dispersion Weight: 1.000
+Migration Weight: 1.000
+Commitment Level for PM with VMs with Critical Services: 1.0
+Commitment Level for PM with VMs with NO Critical Services: 2.0
+Costs for VMs migrations: mc_cs = 2.00 and mc_ncs = 1.00
+Base Individual with 8 VMs allocated in 4 PM:
+
+ *** GENERATION = 0 ***
+:::::>>> best_positioning[1]: 2.205219 < global_best_individual_cost: 1000000.000000 ?
+
+
+=========================================================
+		THE BEST POSITIONING IS:
+2 4 2 1 2 4 2 1 
+
+COSTS:	Energy Cons.: 3170	Dispersion Level.: 0.166667	Migr.: 10	Allocated in [3] PM.
+=========================================================
+
+
+ *** GENERATION = 1 ***
+:::::>>> best_positioning[0]: 2.043185 < global_best_individual_cost: 2.205219 ?
+
+
+=========================================================
+		THE BEST POSITIONING IS:
+2 1 2 1 2 1 2 1 
+
+COSTS:	Energy Cons.: 2200	Dispersion Level.: 0.125	Migr.: 9	Allocated in [2] PM.
+=========================================================
+
+
+Total of Generations to Generate: 50
+Actual Generation: 50
+Without Enhance the Best: 49
+
