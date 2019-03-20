@@ -53,8 +53,6 @@ It is possible to pass a file with a previous configuration of VMs positioning i
 The datacenter file, with settings of the PMs, as well as the requirements of the VMs, must be passed (here we have two examples in **/input** folder) as input to the VMPOS through the command line.
 
 The datacenter file must have the following structure (the text part, which separates PMs from VMs, is fixed and must exist):
-<br>
-<br>
 
     PHYSICAL MACHINES
 
@@ -74,7 +72,6 @@ The datacenter file must have the following structure (the text part, which sepa
     2	60	640	1
     2	15	32	0
 
-<br>
 Let's call this datacenter file of **4x8.vmp** that is a datacenter with 4 PMs and 8 VMs. The 4 existing lines in the PMs part indicate the resources values for each of the PMs in datacenter. And the sequence in each line represents, respectively: Number of Processors (in the example of the first line, 12), Memory Quantity (in the example of the first line, 512), Disk Capacity (in the example of the first line, 10000) and Energy Consumption (in the example of the first line, 1000). Each row is associated with the resources available from one PM.
 
 The 4 columns in the lines of the VMs part indicate the possible values for required resources by each of VMs in the datacenter. The sequence of these 4 columns represents, respectively: Number of Virtual Processors (in the example of the first line, 4), Memory Amount (in the example of the first line, 15), Disk Capacity (in the example of the first line, 80) and the flag that indicates if the VM run critical services (1) or not (0).
@@ -94,15 +91,15 @@ where, **4x8.vmp** was the name given to the file with the datacenter configurat
 **_e)_ Results:**<br>
 The program will generate two files in the folder **/results**, the main has name **pareto_result** which has many informations about the results and, of course, the placement indication of VMs. The second file called **pareto_result_data** has the following sequence in columns of results: Energy Consumption, Dispersion Level, Migration Cost, Fitness, Generation that found best individual and Duration of the execution. 
 
-With this example, it was used the following base positioning file (*vmpos_base_individual.vmp*):<br>
-1 2 2 2 3 1 4 4<br>
-
+With this example, it was used the following base positioning file (*vmpos_base_individual.vmp*):
+ 
+    1 2 2 2 3 1 4 4
 
 And the best placement result was like this:
 
-=========================================================<br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; THE BEST POSITIONING IS:<br>
-2 1 2 1 2 1 2 1<br>
+    =========================================================
+                    THE BEST POSITIONING IS:
+    2 1 2 1 2 1 2 1
 
 In this result, the numbers 1 and 2 are the PMs used to allocate the eight VMs. The PMs 3 and 4 were not used in this placement solution so, they could be turned off. From the 4 PMs available the VMPOS placed the VMs in 2 PMs. Note that the placement in base individual VMs were occupying the 4 PMs.
 
