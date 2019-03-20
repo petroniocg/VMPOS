@@ -19,4 +19,4 @@
 
 /* function headers definitions */
 int** initialization(int number_of_individuals, int h_size, int v_size, int **V, int CRITICAL_SERVICES);
-int generate_solution_position(int max_posible, int SLA);
+int generate_solution_position(int max_posible, int CRITICAL);

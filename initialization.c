@@ -59,19 +59,19 @@ int **initialization(int number_of_individuals, int h_size, int v_size, int **V,
 
 /* generate_solution_position: generates a host number between 0 or 1 and parameter max_posible
  * parameter: maximun number for the randon number to return
- * parameter: SLA of the individual. for 1 the placement is mandatorly
+ * parameter: if VM is critical (1) or not (0). For critical VMs, the placement is mandatory.
  * returns: random number between 0 and parameter max_posible
 */
-int generate_solution_position(int max_posible, int SLA)
+int generate_solution_position(int max_posible, int CRITICAL)
 {
 	/* assign to each virtual machine a random generated physical machine from 0 to the maximum possible */
-	if (SLA == 0)
+	if (CRITICAL == 0)
 	{
 		/* integer from 0 to max_posible + 1*/
 		return rand() % (max_posible + 1);
 	} 
 	/* assign to each virtual machine a random generated physical machine from 1 to the maximum possible */
-	if (SLA == 1)
+	if (CRITICAL == 1)
 	{
 		/* integer from 1 to max_posible */
 		return rand() % max_posible + 1;
