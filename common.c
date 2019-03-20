@@ -305,7 +305,7 @@ int** load_V(int v_size, char path_to_file[], int CRITICAL_SERVICES)
 	fclose(datacenter_file);
 
 	pareto_result = fopen("results/pareto_result","a");
-	fprintf(pareto_result,"\nNumber of CRITICAL VMs: %d (%.1f)%%\n\n", number_vms_sc, ((float)number_vms_sc/(float)v_size)*100.0);
+	fprintf(pareto_result,"\nNumber of CRITICAL VMs: %d (%.1f%%)\n\n", number_vms_sc, ((float)number_vms_sc/(float)v_size)*100.0);
 	fclose(pareto_result);
 
 	return V;

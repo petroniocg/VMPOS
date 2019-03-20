@@ -22,7 +22,7 @@
  * parameter: virtual machines requirements matrix
  * returns: population matrix
 */
-int** initialization(int number_of_individuals, int h_size, int v_size, int **V, int CRITICAL_SERVICES)
+int **initialization(int number_of_individuals, int h_size, int v_size, int **V, int CRITICAL_SERVICES)
 {
 	// population: initial population matrix 
 	int **population = (int **) malloc (number_of_individuals *sizeof (int *));

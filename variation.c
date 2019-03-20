@@ -1,9 +1,15 @@
-/* 
+/*
+ * variation.c: Interactive Memetic Algorithm for Virtual Machine Placement with Over Subscription (VMPOS)
+ * Date: 18-04-2018
+ * Author: Petrônio Carlos Bezerra (petroniocg@ifpb.edu.br)
+ * 
+ * This code is based on imavmp.c developed by Fabio Lopez Pires, as follows:
  * variation.c: Virtual Machine Placement Problem - Genetic Operators Functions
- * Date: 17-11-2014
  * Author: Fabio Lopez Pires (flopezpires@gmail.com)
  * Corresponding Conference Paper: A Many-Objective Optimization Framework for Virtualized Datacenters
- */
+ * Available at: https://github.com/flopezpires
+*/
+
 
 /* include libraries */
 #include <stdio.h>
@@ -11,7 +17,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-/* include arai headers */
+
 #include "variation.h"
 #include "common.h"
 
@@ -19,7 +25,7 @@
  * parameter: solutions matrix
  * parameter: number of individuals
  * returns: array with the Pareto front
- */
+*/
 int *non_dominated_sorting(float **solutions, int number_of_individuals)
 {
 	/* iterators */
@@ -34,7 +40,7 @@ int *non_dominated_sorting(float **solutions, int number_of_individuals)
 	if (pareto_fronts == NULL)
 	{
 		printf ("[ERROR]: Problem with memory space. Function malloc returned NULL!\n");
-      	exit (EXIT_FAILURE);
+    exit (EXIT_FAILURE);
 	}
 
 	/* Pareto fronts initializated to 0 */
@@ -42,10 +48,12 @@ int *non_dominated_sorting(float **solutions, int number_of_individuals)
 	{
 		pareto_fronts[iterator_solution] = 0;
 	}
+
 	/* auxiliar integers */
 	int dominance;
 	int dont_add;
 	int allocated_solutions=0;
+
 	/* while all the solutions have been evaluated */
 	while (allocated_solutions < number_of_individuals)
 	{
@@ -90,7 +98,7 @@ int *non_dominated_sorting(float **solutions, int number_of_individuals)
  * parameter: identificator of the individual a
  * parameter: identificator of the individual b
  * returns: 1 if a dominates b, -1 if b dominates a, 0 if both a and b are non-dominated 
- */
+*/
 int is_dominated(float **solutions, int a, int b)
 {
 	/* if a dominates b */
@@ -127,29 +135,31 @@ int is_dominated(float **solutions, int a, int b)
 	return 0;
 }
 
+
 /* selection: selection of the parents for the crossover
  * parameter: array of the Pareto front
  * parameter: number of individuals
  * parameter: number of selection percent
  * returns: the parent for the crossover
- */
+*/
 int selection(int *fronts, int number_of_individuals, float percent)
 {
 	/* iterator */
 	int iterator_solution;
 	int actual_parent;
 	int posible_parent;
+
 	/* generate randomically a parent candidate */
 	actual_parent = rand() % (number_of_individuals);
+
 	/* iterate on positions of an individual and select the parents for the crossover */
-    for (iterator_solution=0; iterator_solution < (number_of_individuals * percent); iterator_solution++)
-    {
+	for (iterator_solution=0; iterator_solution < (number_of_individuals * percent); iterator_solution++)
+	{
 		posible_parent = rand() % (number_of_individuals);
 		if (fronts[actual_parent] > fronts[posible_parent])
-		{
 			actual_parent = posible_parent;
-		}
-    }
+	}
+
 	return actual_parent;
 }
 
@@ -158,12 +168,11 @@ int selection(int *fronts, int number_of_individuals, float percent)
  * parameter: the mother for the crossover
  * parameter: the father for the crossover
  * parameter: number of virtual machines
- * returns: the crossovered population
- */
-//int **crossover(int **population, int position_parent1, int position_parent2, int v_size) //Old
+ * returns: nothing, it's void
+*/
 void crossover(int **population, int position_parent1, int position_parent2, int v_size)
 {
-  	/* iterators */
+  /* iterators */
 	int iterator_virtual;
 	/* auxiliary parameter */
 	int aux;
@@ -200,28 +209,29 @@ void crossover(int **population, int position_parent1, int position_parent2, int
 			}
 		}
 	}
-	// return population; //Old
 }
 
 /* mutation: performs the mutation operation
  * parameter: population matrix
  * parameter: number of individuals
- * parameter: number of physical_position machines
+ * parameter: number of physical machines
  * parameter: number of virtual machines
- * returns: the mutation population
- */
-//int **mutation(int **population, int **V, int number_of_individuals, int h_size, int v_size) // Old
+ * returns: nothing, it's void
+*/
 void mutation(int **population, int **V, int number_of_individuals, int h_size, int v_size)
 {
    	/* iterators */
 	int iterator_virtual;
 	int physical_position;
 	int iterator_individual;
+
 	/* auxiliary parameter */
 	int aux;
 	float probability;
+
 	srand48(time(NULL));
 	h_size + 1;
+
 	/* iterate on individuals */
 	for (iterator_individual = 0 ; iterator_individual < number_of_individuals ; iterator_individual++)
 	{
@@ -249,12 +259,12 @@ void mutation(int **population, int **V, int number_of_individuals, int h_size, 
 					aux = population[iterator_individual][iterator_virtual];
 					while (physical_position == aux)
 					{
-						/* individual with SLA = 1 */
+						/* VM with critical services */
 						if (V[iterator_virtual][3] == 1)
 						{
 							physical_position = rand() % global_h_sizes[iterator_individual] + 1;
 						}
-						/* individual with SLA = 0 */
+						/* VM with NO critical services */
 						else 
 						{
 							physical_position = rand() % global_h_sizes[iterator_individual];
@@ -266,7 +276,6 @@ void mutation(int **population, int **V, int number_of_individuals, int h_size, 
 			}
 		}
 	}
-	// return population; //Old
 }
 
 /* population_evolution: update the pareto front in the population
@@ -277,9 +286,8 @@ void mutation(int **population, int **V, int number_of_individuals, int h_size, 
  * parameter: front pareto array
  * parameter: number of individuals
  * parameter: number of virtual machines
- * returns: population matrix
- */
-//int **population_evolution(int **P, int **Q, float **objectives_functions_P, float **objectives_functions_Q, int *fronts_P, int number_of_individuals, int v_size) //Old
+ * returns: nothing, it's void
+*/
 void population_evolution(int **P, int **Q, float **objectives_functions_P, float **objectives_functions_Q, int *fronts_P, int number_of_individuals, int v_size)
 {
 	/* P union Q population matrix */
@@ -291,44 +299,32 @@ void population_evolution(int **P, int **Q, float **objectives_functions_P, floa
 	int iterator_individual_Q = 0;
 	int iterator_individual_position = 0;
 
-	//XXXX==>printf("\nMATRIZ P:\n");
-	//XXXX==>print_int_matrix(P, number_of_individuals, v_size);
-	//XXXX==>printf("\n");
-
-	//XXXX==>printf("\nMATRIZ Q:\n");
-	//XXXX==>print_int_matrix(Q, number_of_individuals, v_size);
-	//XXXX==>printf("\n");
-
-
-
 	/* iterate on positions of an individual and copy the P individual and objective function */
 	for (iterator_individual_P=0; iterator_individual_P < number_of_individuals; iterator_individual_P++)
 	{
 		PQ[iterator_individual_P] = (int *) malloc (v_size *sizeof (int));
 		objectives_functions_PQ[iterator_individual_P] = (float *) malloc (3 *sizeof (float));
-		//XXXX==>printf ("PQ[%d]: ", iterator_individual_P);
+
 		for (iterator_individual_position = 0; iterator_individual_position < v_size; iterator_individual_position++)
 		{
 			PQ[iterator_individual_P][iterator_individual_position] = P[iterator_individual_P][iterator_individual_position];
-			//XXXX==>printf ("%d ", PQ[iterator_individual_P][iterator_individual_position]);
 		}
-		//XXXX==>printf("\n");
+
 		objectives_functions_PQ[iterator_individual_P][0] = objectives_functions_P[iterator_individual_P][0];
 		objectives_functions_PQ[iterator_individual_P][1] = objectives_functions_P[iterator_individual_P][1];
 		objectives_functions_PQ[iterator_individual_P][2] = objectives_functions_P[iterator_individual_P][2];
 	}
+
 	/* iterate on positions of an individual and copy the Q individual and objective function */
 	for (iterator_individual_P=number_of_individuals; iterator_individual_P < 2 * number_of_individuals; iterator_individual_P++)
 	{
 		PQ[iterator_individual_P] = (int *) malloc (v_size *sizeof (int));
 		objectives_functions_PQ[iterator_individual_P] = (float *) malloc (3 *sizeof (float));
-		//XXXX==>printf ("PQ[%d]: ", iterator_individual_P);
+
 		for (iterator_individual_position = 0; iterator_individual_position < v_size; iterator_individual_position++)
 		{
 			PQ[iterator_individual_P][iterator_individual_position] = Q[iterator_individual_Q][iterator_individual_position];
-			//XXXX==>printf ("%d ", PQ[iterator_individual_P][iterator_individual_position]);
 		}
-		//XXXX==>printf("\n");
 
 		objectives_functions_PQ[iterator_individual_P][0] = objectives_functions_Q[iterator_individual_Q][0];
 		objectives_functions_PQ[iterator_individual_P][1] = objectives_functions_Q[iterator_individual_Q][1];
@@ -339,6 +335,7 @@ void population_evolution(int **P, int **Q, float **objectives_functions_P, floa
 	/* calculate fitness according to NSGA-II */
 	int *fronts_PQ = non_dominated_sorting(objectives_functions_PQ, number_of_individuals*2);
 	int *population_aux = (int *) malloc (v_size *sizeof (int));
+
 	/* generate Pt+1 according to NSGA-II */
 	int iterator;
 	int iterator_virtual;
@@ -350,7 +347,7 @@ void population_evolution(int **P, int **Q, float **objectives_functions_P, floa
 	if (population_aux == NULL)
 	{
 		printf ("[ERROR]: Problem with memory space. Function malloc returned NULL!\n");
-      	exit (EXIT_FAILURE);
+    exit (EXIT_FAILURE);
 	}
 
 	/* generate Pt+1 according to NSGA-II */
@@ -362,7 +359,7 @@ void population_evolution(int **P, int **Q, float **objectives_functions_P, floa
 			if (fronts_PQ[iterator] == actual_pareto && iterator_P < number_of_individuals)
 			{
 				if (objectives_functions_PQ[iterator][0] != 0 || objectives_functions_PQ[iterator][1] != 0 ||
-			objectives_functions_PQ[iterator][2] !=0)
+						objectives_functions_PQ[iterator][2] !=0)
 				{
 					objectives_functions_P[iterator_P][0] = objectives_functions_PQ[iterator][0];
 					objectives_functions_P[iterator_P][1] = objectives_functions_PQ[iterator][1];
@@ -379,7 +376,6 @@ void population_evolution(int **P, int **Q, float **objectives_functions_P, floa
 		}
 	}
 
-
 	for (iterator_individual_P=0; iterator_individual_P < 2*number_of_individuals; iterator_individual_P++)
 	{
 		free (PQ[iterator_individual_P]);
@@ -389,6 +385,4 @@ void population_evolution(int **P, int **Q, float **objectives_functions_P, floa
 	free (PQ);
 	free (objectives_functions_PQ);
 	free (population_aux);
-
-	//return P; // Old
 }

@@ -106,7 +106,7 @@ where, **4x8.vmp** was the name given to the file with the datacenter configurat
 
 ---
 
-The program will generate two files in the folder **/results**, the main has name **pareto_result** which has many informations about the results and, of course, the placement indication of VMs. The second file called **pareto_result_data** has the following sequence in columns of results: Energy Consumption, Dispersion Level, Migration Cost, Fitness, Generation that found best individual and Duration of the execution. 
+The program will generate two files in the folder **/results**, the main has name **pareto_result** which has many informations about the results and, of course, the placement indication of VMs. The second file called **pareto_result_data** has the following sequence in columns of results: Energy Consumption, Dispersion Level, Migration Cost, Fitness and which Generation that found best individual. 
 
 With this example, it was used the following base positioning file (*vmpos_base_individual.vmp*):
  
@@ -120,7 +120,7 @@ And the best placement result was like this:
 
 In this result, the numbers 1 and 2 are the PMs used to allocate the eight VMs. The PMs 3 and 4 were not used in this placement solution so, they could be turned off. From the 4 PMs available the VMPOS placed the VMs in 2 PMs. Note that the placement in base individual VMs were occupying the 4 PMs.
 
-The position of the number in the solution, from left to right, indicates which VM is allocated in which PM. So, the VMs 1, 3, 5 and 7 are in PM 2. The VMs 2, 4, 6 and 8 are in PM 1.
+The position of the number in the solution, from left to right, indicates which VM is allocated in which PM. So, the VMs 1, 3, 5 and 7 are in PM 2. The VMs 2, 4, 6 and 8 are in PM 1.<br><br>
 
 ## Modifications:
 

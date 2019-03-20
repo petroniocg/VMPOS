@@ -298,13 +298,12 @@ void report_best_population(struct pareto_element *pareto_head, int **H, int **V
 		pareto_result = fopen("results/pareto_result","a");
 
 		fprintf(pareto_result,"\n *** GENERATION = %d ***", generation);
-		fprintf(pareto_result,"\n:::::>>> best_positioning[%d]: %f < global_best_individual_cost: %f ?\n", best_indice, best_positioning, global_best_individual_cost);
 
 		best_generation = generation;
 		global_best_individual_cost = best_positioning;
 		generations_without_improvment = 0;
 
-		fprintf(pareto_result,"\n\n=========================================================\n");
+		fprintf(pareto_result,"\n=========================================================\n");
 		fprintf(pareto_result,"\t\tTHE BEST POSITIONING IS:\n");
 
 		// Copy the best individual found to global_best_individual
