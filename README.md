@@ -2,9 +2,9 @@
 
 This software makes the Virtual Machines (VM) placement considering the oversubscription of the Physical Machines (PM), following an evolutionary algorithm. 
 
-This code is based on Interactive Memetic Algorithm for Virtual Machine Placement (IMAVMP) developed by Fabio Lopez Pires [1].
+This code is based on Interactive Memetic Algorithm for Virtual Machine Placement (IMAVMP) developed by Fabio Lopez Pires [[1](#References)].
 
-The VMPOS approach considers three objectives that must be met simultaneously: the reduction of Energy Consuption, the reduction of Dispersion Level and the reduction of Migration costs. The solutions are evolved seeking the best trade-off between the objectives and applying the theory of Pareto Frontier [2].
+The VMPOS approach considers three objectives that must be met simultaneously: the reduction of Energy Consuption, the reduction of Dispersion Level and the reduction of Migration costs. The solutions are evolved seeking the best trade-off between the objectives and applying the theory of Pareto Frontier [[2](#References)].
 
 The VMPOS receives a Datacenter (DC) text file as input with the resources of the machines (physical and virtual) and generates a positioning of all VMs in PMs, applying different levels of commitment (oversubscription), following the population evolution of a genetic algorithm. 
 
