@@ -2,9 +2,9 @@
 
 This software makes the Virtual Machines (VM) placement considering the oversubscription of the Physical Machines (PM), following an evolutionary algorithm. 
 
-This code is based on Interactive Memetic Algorithm for Virtual Machine Placement (IMAVMP) developed by Fabio Lopez Pires [1].
+This code is based on Interactive Memetic Algorithm for Virtual Machine Placement (IMAVMP) developed by Fabio Lopez Pires [^1].
 
-The VMPOS approach considers three objectives that must be met simultaneously: the reduction of Energy Consuption, the reduction of Dispersion Level and the reduction of Migration costs. The solutions are evolved seeking the best trade-off between the objectives and applying the theory of Pareto Frontier [2].
+The VMPOS approach considers three objectives that must be met simultaneously: the reduction of Energy Consuption, the reduction of Dispersion Level and the reduction of Migration costs. The solutions are evolved seeking the best trade-off between the objectives and applying the theory of Pareto Frontier [^2].
 
 The VMPOS receives a Datacenter (DC) text file as input with the resources of the machines (physical and virtual) and generates a positioning of all VMs in PMs, applying different levels of commitment (oversubscription), following the population evolution of a genetic algorithm. 
 
@@ -18,7 +18,10 @@ At the end of processing the VMPOS returns an output file with the positioning o
 
 The configuration and initial positioning files are read during program execution. The datacenter file must be passed.
 
-**_a)_ Configuration:**<br>
+**_a)_ Configuration:**
+
+---
+
 The *vmpos_config.vmp* file, with settings of the VMPOS must be configured and is in same path of VMPOS executable. It has the following structure:
 
     POPULATION
@@ -47,11 +50,17 @@ In code, the oversubscription is applied on PMs through two constants, CL_CS (*C
 
 Below the MIGRATION COSTS line has two tab-separated values. The first indicates the cost applied to VMs with critical services (2.0), and the second value is the cost applied to VMs with non-critical services (1.0). This means that a bigger cost associated to VMs with critical services tends to reduce the chance of choice a solution with more migrations of critical VMs. A lower cost of VMs with non-critical services tends to impact less on the migration cost objective calculations, favoring solutions that deliver results with more migrations from non-critical VMs and less from critical VMs.<br><br>
 
-**_b)_ Base Individual File:**<br>
+**_b)_ Base Individual File:**
+
+---
+
 It is possible to pass a file with a previous configuration of VMs positioning in the existing PMs. Even if the allocation is not using all datacenter PMs, it is important to put all the existing ones in the file describing the datacenter because it may be that VMPOS needs more PMs to perform the allocation of all VMs. The base individual file is named *vmpos_base_individual*.vmp and stays in the main VMPOS folder. If this file does not exist, the vmpos will generate a base individual randomly to calculate the migration cost objective.<br><br>
 
 
-**_c)_ Datacenter File:**<br>
+**_c)_ Datacenter File:**
+
+---
+
 The datacenter file, with settings of the PMs, as well as the requirements of the VMs, must be passed (here we have two examples in **/input** folder) as input to the VMPOS through the command line.
 
 The datacenter file must have the following structure (the text part, which separates PMs from VMs, is fixed and must exist):
@@ -80,7 +89,10 @@ The 4 columns in the lines of the VMs part indicate the possible values for requ
 
 If you want to try another datacenters configurations try to use the SIMULATOR software, available at https://github.com/petroniocg/simulator, that generates random datacenters with the number of PM and VMs you want.<br><br>
 
-**_d)_ Running:**<br>
+**_d)_ Running:**
+
+---
+
 With the files DC and configuration ready, and optionally one file with a base individual, the VMPOS is executed as follows:
 
 
@@ -90,7 +102,10 @@ $ ./vmpos input/4x8.vmp
 
 where, **4x8.vmp** was the name given to the file with the datacenter configuration.<br><br>
 
-**_e)_ Results:**<br>
+**_e)_ Results:**
+
+---
+
 The program will generate two files in the folder **/results**, the main has name **pareto_result** which has many informations about the results and, of course, the placement indication of VMs. The second file called **pareto_result_data** has the following sequence in columns of results: Energy Consumption, Dispersion Level, Migration Cost, Fitness, Generation that found best individual and Duration of the execution. 
 
 With this example, it was used the following base positioning file (*vmpos_base_individual.vmp*):
@@ -118,6 +133,6 @@ $ gcc -o vmpos vmpos.c common.c initialization.c reparation.c local_search.c com
 
 ## References
 
-[1] Fabio Lopez Pires. Corresponding Conference Paper: A Many-Objective Optimization Framework for Virtualized Datacenters. The code is available at: https://github.com/flopezpires
+[^1]: Fabio Lopez Pires. Corresponding Conference Paper: A Many-Objective Optimization Framework for Virtualized Datacenters. The code is available at: https://github.com/flopezpires
 
-[2] Pareto Frontier. Available at https://en.wikipedia.org/wiki/Pareto_efficiency
+[^2]: Pareto Frontier. Available at https://en.wikipedia.org/wiki/Pareto_efficiency
